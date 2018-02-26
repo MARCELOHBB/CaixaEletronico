@@ -8,18 +8,17 @@ namespace CaixaEletronico
 {
     class ContaCorrente : Conta
     {
+        private static int totalDeContas = 0;
 
-        public override bool Saca(double valor)
+        public ContaCorrente()
         {
-            if (valor > this.Saldo || valor < 0)
-            {
-                return false;
-            }
-            else
-            {
-                this.Saldo -= (valor + 0.1);
-                return true;
-            }
+            ContaCorrente.totalDeContas++;
         }
+
+        public static int ProximaConta()
+        {
+            return ContaCorrente.totalDeContas + 1;
+        }
+
     }
 }

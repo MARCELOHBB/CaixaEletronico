@@ -12,7 +12,8 @@ namespace CaixaEletronico
 {
     public partial class Form1 : Form
     {
-        Conta conta;
+        //Conta conta;
+        Conta[] contas;
 
         public Form1()
         {
@@ -21,7 +22,7 @@ namespace CaixaEletronico
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.conta = new ContaCorrente();
+            /*this.conta = new ContaCorrente();
             // this.conta = new ContaPoupanca(); TESTE PARA CONTA POUPANÇA
             this.conta.Titular = new Cliente();
 
@@ -30,28 +31,57 @@ namespace CaixaEletronico
             this.conta.Deposita(200.0);
             
 
-            this.MostraConta();
+            this.MostraConta();*/
+
+            Conta contaDoVictor = new Conta();
+            contaDoVictor.Titular = new Cliente();
+            contaDoVictor.Titular.Nome = "Victor";
+            contaDoVictor.Numero = 1;
+            contaDoVictor.Titular.idade = 19;
+
+            Conta contaDoMario = new Conta();
+            contaDoMario.Titular = new Cliente();
+            contaDoMario.Titular.Nome = "Mario";
+            contaDoMario.Numero = 2;
+            contaDoMario.Titular.idade = 19;
+
+            this.contas = new Conta[2];
+            this.contas[0] = contaDoVictor;
+            this.contas[1] = contaDoMario;
+
+            foreach (Conta conta in this.contas)
+            {
+                comboContas.Items.Add(conta.Titular.Nome);
+            }
+        }
+
+        private Conta BuscaContaSelecionada()
+        {
+            int indiceSelecionado = comboContas.SelectedIndex;
+            return this.contas[indiceSelecionado];
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             string textoDoValorDoDeposito = textoValor.Text;
             double valorDeposito = Convert.ToDouble(textoDoValorDoDeposito);
-            this.conta.Deposita(valorDeposito);
+            Conta contaSelecionada = this.BuscaContaSelecionada();
+            contaSelecionada.Deposita(valorDeposito);
 
-            this.MostraConta();
+            this.MostraConta(contaSelecionada);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             string textoDoValorDoSaque = textoValor.Text;
             double valorSaque = Convert.ToDouble(textoDoValorDoSaque);
-            this.conta.Saca(valorSaque);
+            Conta contaSelecionada = this.BuscaContaSelecionada();
+            contaSelecionada.Saca(valorSaque);
 
-            this.MostraConta();
+            this.MostraConta(contaSelecionada);
         }
 
-        private void MostraConta()
+        private void MostraConta(Conta conta)
         {
             textoTitular.Text = conta.Titular.Nome;
             textoSaldo.Text = Convert.ToString(conta.Saldo);
@@ -74,6 +104,13 @@ namespace CaixaEletronico
             t.Soma(c2);
 
             MessageBox.Show("valor total: " + t.ValorTotal);
+        }
+
+        public void comboContas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Conta contaSelecionada = BuscaContaSelecionada();
+
+            this.MostraConta(contaSelecionada);
         }
     }
 }

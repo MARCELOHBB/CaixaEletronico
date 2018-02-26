@@ -36,6 +36,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.comboContas = new System.Windows.Forms.ComboBox();
+            this.destinoDaTransferencia = new System.Windows.Forms.ComboBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textoTitular
@@ -109,11 +111,31 @@
             this.comboContas.TabIndex = 7;
             this.comboContas.SelectedIndexChanged += new System.EventHandler(this.comboContas_SelectedIndexChanged);
             // 
+            // destinoDaTransferencia
+            // 
+            this.destinoDaTransferencia.FormattingEnabled = true;
+            this.destinoDaTransferencia.Location = new System.Drawing.Point(158, 52);
+            this.destinoDaTransferencia.Name = "destinoDaTransferencia";
+            this.destinoDaTransferencia.Size = new System.Drawing.Size(121, 21);
+            this.destinoDaTransferencia.TabIndex = 8;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(187, 94);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 9;
+            this.button4.Text = "Transferir";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(308, 325);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.destinoDaTransferencia);
             this.Controls.Add(this.comboContas);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -140,6 +162,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox comboContas;
+        private System.Windows.Forms.ComboBox destinoDaTransferencia;
+        private System.Windows.Forms.Button button4;
     }
 }
 

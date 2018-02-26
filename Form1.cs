@@ -52,10 +52,6 @@ namespace CaixaEletronico
             foreach (Conta conta in this.contas)
             {
                 comboContas.Items.Add(conta.Titular.Nome);
-            }
-
-            foreach (Conta conta in this.contas)
-            {
                 destinoDaTransferencia.Items.Add(conta.Titular.Nome);
             }
 

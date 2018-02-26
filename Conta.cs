@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CaixaEletronico
 {
-    abstract class Conta
+    public abstract class Conta
     {
         public int Numero { get; set; }
         public Cliente Titular { get; set; }
@@ -20,35 +20,23 @@ namespace CaixaEletronico
             }
         }
 
-        public virtual bool Saca(double valor)
+        public virtual void Saca(double valor)
         {
-            if (valor > this.Saldo || valor < 0)
+            if (valor < 0.0)
             {
-                return false;
+                throw new ArgumentException();
+            }
+            if (valor > this.Saldo)
+            {
+                throw new SaldoInsuficienteExcepition();
             }
             else
             {
-                if (this.Titular.EhMaiorDeIdade())
-                {
-                    this.Saldo -= valor;
-                    return true;
-                }
-                else
-                {
-                    if (valor <= 200)
-                    {
-                        this.Saldo -= valor;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
+                this.Saldo -= valor;
             }
         }
 
-        public void Transfere(double valor, Conta destino)
+            public void Transfere(double valor, Conta destino)
         {
             this.Saca(valor);
             destino.Deposita(valor);

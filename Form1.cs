@@ -53,11 +53,23 @@ namespace CaixaEletronico
             {
                 comboContas.Items.Add(conta.Titular.Nome);
             }
+
+            foreach (Conta conta in this.contas)
+            {
+                destinoDaTransferencia.Items.Add(conta.Titular.Nome);
+            }
+
         }
 
         private Conta BuscaContaSelecionada()
         {
             int indiceSelecionado = comboContas.SelectedIndex;
+            return this.contas[indiceSelecionado];
+        }
+
+        private Conta BuscaContaSelecionadaTranfere()
+        {
+            int indiceSelecionado = destinoDaTransferencia.SelectedIndex;
             return this.contas[indiceSelecionado];
         }
 
@@ -109,6 +121,19 @@ namespace CaixaEletronico
         public void comboContas_SelectedIndexChanged(object sender, EventArgs e)
         {
             Conta contaSelecionada = BuscaContaSelecionada();
+
+            this.MostraConta(contaSelecionada);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Conta contaSelecionada = this.BuscaContaSelecionada();
+            int indiceSelecionado = destinoDaTransferencia.SelectedIndex;
+            Conta contaRecebe = this.contas[indiceSelecionado];
+            string textoDoValorTransfere = textoValor.Text;
+            double valorTransfere = Convert.ToDouble(textoDoValorTransfere);
+
+            contaSelecionada.Transfere(valorTransfere, contaRecebe);
 
             this.MostraConta(contaSelecionada);
         }

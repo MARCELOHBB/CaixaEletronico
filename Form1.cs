@@ -33,13 +33,13 @@ namespace CaixaEletronico
 
             this.MostraConta();*/
 
-            Conta contaDoVictor = new Conta();
+            Conta contaDoVictor = new ContaCorrente();
             contaDoVictor.Titular = new Cliente();
             contaDoVictor.Titular.Nome = "Victor";
             contaDoVictor.Numero = 1;
             contaDoVictor.Titular.idade = 19;
 
-            Conta contaDoMario = new Conta();
+            Conta contaDoMario = new ContaCorrente();
             contaDoMario.Titular = new Cliente();
             contaDoMario.Titular.Nome = "Mario";
             contaDoMario.Numero = 2;
@@ -84,7 +84,21 @@ namespace CaixaEletronico
             string textoDoValorDoSaque = textoValor.Text;
             double valorSaque = Convert.ToDouble(textoDoValorDoSaque);
             Conta contaSelecionada = this.BuscaContaSelecionada();
-            contaSelecionada.Saca(valorSaque);
+            //contaSelecionada.Saca(valorSaque);
+
+            try
+            {
+                contaSelecionada.Saca(valorSaque);
+                MessageBox.Show("Dinheiro Liberado");
+            }
+            catch (SaldoInsuficienteExcepition exe)
+            {
+                MessageBox.Show("Saldo insuficiente");
+            }
+            catch (System.ArgumentException exe)
+            {
+                MessageBox.Show("Valor do saque inválido.");
+            }
 
             this.MostraConta(contaSelecionada);
         }
@@ -103,7 +117,7 @@ namespace CaixaEletronico
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Conta c1 = new Conta();
+            Conta c1 = new ContaCorrente();
             c1.Deposita(200.0);
             ContaPoupanca c2 = new ContaPoupanca();
             c2.Deposita(125.0);

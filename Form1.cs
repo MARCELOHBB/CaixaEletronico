@@ -14,6 +14,7 @@ namespace CaixaEletronico
     {
         //Conta conta;
         Conta[] contas;
+        private int quantidadeDeContas;
 
         public Form1()
         {
@@ -33,28 +34,46 @@ namespace CaixaEletronico
 
             this.MostraConta();*/
 
-            Conta contaDoVictor = new ContaCorrente();
+            /*Conta contaDoVictor = new ContaCorrente();
             contaDoVictor.Titular = new Cliente();
+            quantidadeDeContas++;
             contaDoVictor.Titular.Nome = "Victor";
             contaDoVictor.Numero = 1;
             contaDoVictor.Titular.idade = 19;
 
             Conta contaDoMario = new ContaCorrente();
             contaDoMario.Titular = new Cliente();
+            quantidadeDeContas++;
             contaDoMario.Titular.Nome = "Mario";
             contaDoMario.Numero = 2;
             contaDoMario.Titular.idade = 19;
 
-            this.contas = new Conta[2];
+            this.contas = new Conta[3];
             this.contas[0] = contaDoVictor;
             this.contas[1] = contaDoMario;
 
             foreach (Conta conta in this.contas)
             {
-                comboContas.Items.Add(conta.Titular.Nome);
-                destinoDaTransferencia.Items.Add(conta.Titular.Nome);
-            }
+                comboContas.Items.Add(conta);
+                destinoDaTransferencia.Items.Add(conta);
+            }*/
+            this.contas = new Conta[10];
+        }
 
+        public void AdicionaConta(Conta conta)
+        {
+            if (this.quantidadeDeContas == this.contas.Length)
+            {
+                Conta[] novo = new Conta[this.contas.Length * 2];
+                for (int i = 0; i < this.quantidadeDeContas; i++)
+                {
+                    novo[i] = this.contas[i];
+                }
+                this.contas = novo;
+            }
+            this.contas[this.quantidadeDeContas] = conta;
+            this.quantidadeDeContas ++;
+            comboContas.Items.Add(conta.Titular.Nome);
         }
 
         private Conta BuscaContaSelecionada()
@@ -146,6 +165,12 @@ namespace CaixaEletronico
             contaSelecionada.Transfere(valorTransfere, contaRecebe);
 
             this.MostraConta(contaSelecionada);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            CadastroDeConta formularioDeCadastro = new CadastroDeConta(this);
+            formularioDeCadastro.ShowDialog();
         }
     }
 }

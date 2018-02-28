@@ -14,24 +14,40 @@ namespace CaixaEletronico
     {
         private Form1 aplicacaoPrincipal;
 
-        public CadastroDeConta(Form1 aplicacaoPrincipal)
+        public CadastroDeConta(Form1 aplicacaoPrincipal) 
         {
             this.aplicacaoPrincipal = aplicacaoPrincipal;
             InitializeComponent();
         }
 
+        private void CadastroDeConta_Load(object sender, EventArgs e)
+        {
+
+            this.tipoConta.Items.Add("Conta Corrente");
+            this.tipoConta.Items.Add("Conta Poupança");
+            this.tipoConta.Items.Add("Conta Investimento");
+        }
+
+        private void tipoConta_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            Conta novaConta = null;
-            if (tipoDeConta.Text == "Poupanca")
+            Conta novaConta;
+            if (tipoConta.Text.Equals("Conta Poupança"))
             {
                 novaConta = new ContaPoupanca();
             }
-            else
+            else if (tipoConta.Text.Equals("Conta Corrente"))
             {
                 novaConta = new ContaCorrente();
             }
-           
+            else
+            {
+                novaConta = new ContaInvestimento();
+            }
+
             Cliente novocliente = new Cliente();
             novaConta.Titular = novocliente;
             novaConta.Titular.Nome = titularConta.Text;

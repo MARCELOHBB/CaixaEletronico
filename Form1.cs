@@ -76,7 +76,26 @@ namespace CaixaEletronico
             comboContas.Items.Add(conta.Titular.Nome);
         }
 
-        private Conta BuscaContaSelecionada()
+        public void RemoveConta(Conta c)
+        {
+            comboContas.Items.Remove(c.Titular.Nome);
+            comboContas.Items.Remove(c);
+            int i;
+            for (i = 0; i < this.quantidadeDeContas; i++)
+            {
+                if (this.contas[i] == c)
+                {
+                    break;
+                }
+            }
+            while (i + 1 <= this.quantidadeDeContas)
+            {
+                this.contas[i] = this.contas[i + 1];
+                i++;
+            }
+        }
+
+    private Conta BuscaContaSelecionada()
         {
             int indiceSelecionado = comboContas.SelectedIndex;
             return this.contas[indiceSelecionado];
@@ -171,6 +190,13 @@ namespace CaixaEletronico
         {
             CadastroDeConta formularioDeCadastro = new CadastroDeConta(this);
             formularioDeCadastro.ShowDialog();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            int indiceSelecionado = comboContas.SelectedIndex;
+            Conta conta = this.contas[indiceSelecionado];
+            this.RemoveConta(conta);
         }
     }
 }
